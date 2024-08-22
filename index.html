@@ -2,76 +2,73 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>music player</title>
+    <title>Music Player Design - Easy Tutorials</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-</head>
 <body>
-<div class="container">
-     <div class="music-player">
-     <nav>
-        <div class="circle">
-            <i class="fa-solid fa-angle-left"></i>
-        </div>
-        <div class="circle">   
-           <i class="fa-solid fa-bars"></i>                               
-        </div>
-    </nav>
-    <img src="468-thumbnail.png" class="song-img">
-    <h1>Despacito</h1>
-    <p>Luis Fonsi Ft. Puerto Rican</p>
-     
-    <audio id="song">
-         <source src = "Endha-Pakkam.mp3" type="audio/mpeg">
-    </audio>
-    <input type="range" value="0" id="progress">
+    <div class="container">
+         <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="468-thumbnail.png" class="song-img">
+            <h1>Despacito</h1>
+            <p>Luis Fonsi Ft. Puerto Rican</p>
+            <audio id="song">
+                <source src="vj song.mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" value="0" id="progress">
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play"   id="ctrlIcon"></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
 
-    <div class="controls">
-        <div><i class="fa-solid fa-backward"></i></div>
-        <div onclick="Playpause()"><i class="fa-solid fa-play" id="ctrlicon"></i></div> 
-        <div><i class="fa-solid fa-forward"></i></div>
-
-           </div>
-        </div>
+            </div>
          </div>
-     <script>
+    </div>
+    <script>
+        let progress = document.getElementById("progress");
+        let song = document.getElementById("song");
+        letctrlIcon = document.getElementById("ctrlIcon");
 
-         let progress = document.getElementById("progress");
-         let song= document.getElementById("progress");
-         let ctrlicon = document.getElementById("ctrlicon");
-        
+        song.onloadedmetadata=function(){
+            progress.max=song.duration;
+            progress.value=song.currentTime;
+        }
+        function playPause(){
+            if(ctrlIcon.classList.contains("fa-pause")){
+               song.pause();
+               ctrlIcon.classList.remove("fa-pause");
+               ctrlIcon.classList.add("fa-play");
 
-         song.onloadedmetadata = function(){
-            progress.max = song.duration;
-            progress.value= song.currentTime;
-         
-         }
-         function Playpause(){
-            if(ctrlicon.classList.contains("fa-pause")){
-                song.pause();
-                ctrlicon.classList.remove("fa-pause");
-                ctrlicon.classList.add("fa-play");
             }
             else{
                 song.play();
-                ctrlicon.classList.add("fa-pause");
-                ctrlicon.classList.remove("fa-play");
-            }
+                ctrlIcon.classList.add("fa-pause");
+                ctrlIcon.classList.remove("fa-play");
 
-         }
-         if(song.play()){
+
+            }
+        }
+        if(song.play()){
             setInterval(()=>{
                 progress.value = song.currentTime;
-            },500);
-         }
 
-         progress.onchange = function(){
+            },500);
+        }
+
+        progress.onchange= function(){
             song.play();
             song.currentTime = progress.value;
-            ctrlicon.classList.add("fa-pause");
-            ctrlicon.classList.remove("fa-play");
-         }
-     </script>    
-    
+            ctrlIcon.classList.add("fa-pause");
+            ctrlIcon.classList.remove("fa-play");
+        }
+    </script>
+        
 </body>
 </html>
